@@ -97,7 +97,7 @@ def delete_drinks(jwt):
 
 ## Error Handling
 '''
-Example error handling for unprocessable entity
+error handling for unprocessable entity
 '''
 @app.errorhandler(422)
 def unprocessable(error):
@@ -108,23 +108,45 @@ def unprocessable(error):
                     }), 422
 
 '''
-@TODO implement error handlers using the @app.errorhandler(error) decorator
-    each error handler should return (with approprate messages):
-             jsonify({
+error handling for resource not found
+'''
+@app.errorhandler(404)
+def unprocessable(error):
+    return jsonify({
                     "success": False, 
                     "error": 404,
                     "message": "resource not found"
                     }), 404
 
 '''
+error handling for Forbidden client error
+'''
+@app.errorhandler(403)
+def unprocessable(error):
+    return jsonify({
+                    "success": False, 
+                    "error": 403,
+                    "message": "forbidden"
+                    }), 403
 
 '''
-@TODO implement error handler for 404
-    error handler should conform to general task above 
+error handling for Unauthorized client
 '''
+@app.errorhandler(401)
+def unprocessable(error):
+    return jsonify({
+                    "success": False, 
+                    "error": 401,
+                    "message": "unauthorized"
+                    }), 401
 
-
 '''
-@TODO implement error handler for AuthError
-    error handler should conform to general task above 
+error handling for Bad Request
 '''
+@app.errorhandler(400)
+def unprocessable(error):
+    return jsonify({
+                    "success": False, 
+                    "error": 400,
+                    "message": "bad request"
+                    }), 400
