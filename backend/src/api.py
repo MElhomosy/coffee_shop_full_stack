@@ -31,10 +31,13 @@ CORS(app)
 
 
 @app.route('/drinks')
-@requires_auth('get:drinks')
-def drinks(jwt):
-    print(jwt)
-    return 'Not Implemented'
+def drinks():
+    drinks = Drink.query.order_by(Drink.id).all()
+    short_drinks = [Drink.short() for drink in drinks]
+    return jsonify({
+      'success': True,
+      'drinks': short_drinks
+    }), 200
 
 
 '''
@@ -50,9 +53,13 @@ def drinks(jwt):
 
 @app.route('/drinks-detail')
 @requires_auth('get:drinks-detail')
-def drinks-detail(jwt):
-    print(jwt)
-    return 'Not Implemented'
+def drinks-detail():
+    drinks = Drink.query.order_by(Drink.id).all()
+    long_drinks = [Drink.short() for drink in drinks]
+    return jsonify({
+      'success': True,
+      'drinks': long_drinks
+    }), 200
 
 
 '''
