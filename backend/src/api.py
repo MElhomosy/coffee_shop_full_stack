@@ -69,9 +69,19 @@ def drinks-detail(jwt):
 
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
-def post_drinks(jwt):
-    print(jwt)
-    return 'Not Implemented'
+def post_drinks():
+    body = request.get_json()
+    req_title = body.get('title', None)
+    req_recipe = body.get('recipe', None)
+    try:
+        drink = Drink(title=req_title, recipe=req_recipe)
+        drink.insert()
+        return jsonify({
+          'success': True,
+          'drinks': drink
+        })
+    except Exception:
+        abort(422)
 
 
 '''
@@ -98,7 +108,7 @@ def patch_drinks(id):
         if drink is None:
             abort(404)
         drink.title = new_title
-        drink.update()        
+        drink.update()
         return jsonify({
           'success': True,
           'drinks': drink,
