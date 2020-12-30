@@ -88,11 +88,23 @@ def post_drinks(jwt):
 '''
 
 
-@app.route('/drinks', methods=['PATCH'])
+@app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
-def patch_drinks(jwt):
-    print(jwt)
-    return 'Not Implemented'
+def patch_drinks(id):
+    body = request.get_json()
+    new_title = body.get('title', None)
+    try:
+        drink = Drink.query.filter(Drink.id == id).one_or_none()
+        if drink is None:
+            abort(404)
+        drink.title = new_title
+        drink.update()        
+        return jsonify({
+          'success': True,
+          'drinks': drink,
+        }), 200
+    except Exception:
+        abort(422)
 
 
 '''
