@@ -2,6 +2,9 @@ venv/
 .vscode/
 __pycache__/
 test.db
+env
+node_modules
+Coffee_Shop.zip
 
 # OS generated files #
 ######################

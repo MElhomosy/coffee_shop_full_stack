@@ -53,7 +53,7 @@ def drinks():
 
 @app.route('/drinks-detail')
 @requires_auth('get:drinks-detail')
-def drinks-detail():
+def drinks_detail():
     drinks = Drink.query.order_by(Drink.id).all()
     long_drinks = [Drink.short() for drink in drinks]
     return jsonify({
